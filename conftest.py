@@ -1,6 +1,7 @@
 import pytest
 
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver import ChromeOptions, FirefoxProfile
 
 
@@ -22,12 +23,17 @@ def browser(request, locale):
     browser_name = request.config.getoption('browser_name')
     if browser_name == 'chrome':
         options = ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('window-size=1920x935')
         options.add_experimental_option('prefs', {'intl.accept_languages': locale})
         browser = webdriver.Chrome(options=options)
     elif browser_name == 'firefox':
         fp = FirefoxProfile()
+        options = Options()
+        options.add_argument('--headless')
+        options.add_argument('window-size=1920x935')
         fp.set_preference('intl.accept_languages', locale)
-        browser = webdriver.Firefox(firefox_profile=fp)
+        browser = webdriver.Firefox(firefox_profile=fp, options=options)
     else:
         raise pytest.UsageError('Browser should be chrome or firefox')
 
