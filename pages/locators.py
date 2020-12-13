@@ -1,8 +1,9 @@
 from selenium.webdriver.common.by import By
 
 
-class MainPageLocator:
+class BasePageLocators:
     LOGIN_LINK = (By.CSS_SELECTOR, '#login_link')
+    LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
 
 
 class LoginPageLocators:
@@ -16,4 +17,4 @@ class ProductPageLocators:
     PRODUCT_PRICE = (By.CSS_SELECTOR, '.product_main p.price_color')
     ALERT_PRODUCT_NAME = (By.CSS_SELECTOR, '.fade.in:first-child strong')
     ALERT_PRODUCT_PRICE = (By.CSS_SELECTOR, '.fade.in:last-child strong')
-    ADD_MESSAGES = (By.ID, 'messages')
+    SUCCESS_MESSAGES = (By.ID, 'messages')  # Убрать и заменить в тестах (Плохой локатор)
