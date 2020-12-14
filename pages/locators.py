@@ -18,12 +18,12 @@ class LoginPageLocators:
 
 
 class ProductPageLocators:
+    SUCCESS_MESSAGES = (By.ID, 'messages')
     ADD_BUTTON = (By.CSS_SELECTOR, 'button.btn-add-to-basket')
     PRODUCT_NAME = (By.CSS_SELECTOR, '.product_main h1')
     PRODUCT_PRICE = (By.CSS_SELECTOR, '.product_main p.price_color')
     ALERT_PRODUCT_NAME = (By.CSS_SELECTOR, '.fade.in:first-child strong')
     ALERT_PRODUCT_PRICE = (By.CSS_SELECTOR, '.fade.in:last-child strong')
-    SUCCESS_MESSAGES = (By.ID, 'messages')
 
 
 class BasketPageLocators:

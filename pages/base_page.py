@@ -17,6 +17,7 @@ class BasePage:
 
     @staticmethod
     def _solve(x):
+        # Решает математическую загадку
         return str(math.log(abs(12 * math.sin(float(x)))))
 
     def open(self):
@@ -30,18 +31,22 @@ class BasePage:
         return self.browser
 
     def go_to_basket_page(self):
+        # Перейти на страницу корзины
         basket_link = self.browser.find_element(*BasePageLocators.BASKET_LINK)
         basket_link.click()
         return self.browser
 
     def should_be_authorized_user(self):
+        # Проверка авторизован юзер или нет
         assert self.is_element_present(*BasePageLocators.USER_ICON), \
             'User icon not presented? probably unauthorized user'
 
     def should_be_login_link(self):
+        # Есть ли кнопка с логином на странице
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), 'Login link is not presented'
 
     def should_be_basket_link(self):
+        # Есть ли кнопка с корзиной на странице
         assert self.is_element_present(*BasePageLocators.BASKET_LINK), 'Basket link is not presented'
 
     def is_alert_present(self):
@@ -78,6 +83,7 @@ class BasePage:
         return False
 
     def solve_quiz_and_get_code(self):
+        # Решение алерта
         alert = self.is_alert_present()
         if not alert:
             print('No promo alert!')
