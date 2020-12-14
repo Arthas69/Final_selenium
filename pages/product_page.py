@@ -31,7 +31,7 @@ class ProductPage(BasePage):
         self.should_be_correct_basket_price()
 
     def should_be_visible_messages_of_successful_addition(self):
-        assert self.is_element_present(*ProductPageLocators.SUCCESS_MESSAGES)  # Поменять
+        assert self.is_element_present(*ProductPageLocators.SUCCESS_MESSAGES)
 
     def should_disappear_success_messages(self):
         assert self.is_disappeared(*ProductPageLocators.ALERT_PRODUCT_NAME), 'Elements not disappeared, but should'
