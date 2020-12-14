@@ -7,9 +7,7 @@ from pages.basket_page import BasketPage
 from pages.product_page import ProductPage
 from pages.login_page import LoginPage
 
-main_page = 'http://selenium1py.pythonanywhere.com/ru/catalogue/category/books_2'
 product_link = 'http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear'
-# link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019'
 
 links = [
     "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
@@ -24,9 +22,6 @@ links = [
     "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9"
 ]
 
-links_xfail = links.copy()
-links_xfail[7] = pytest.param("http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer7", marks=pytest.mark.xfail)
-
 
 def test_guest_should_see_login_link_on_product_page(browser):
     page = ProductPage(browser, product_link)
@@ -34,12 +29,13 @@ def test_guest_should_see_login_link_on_product_page(browser):
     page.should_be_login_link()
 
 
+@pytest.mark.need_review
 def test_guest_can_go_to_login_page_from_product_page(browser):
     page = ProductPage(browser, product_link)
     page.open()
-    page.add_product_to_basket()
-    page.solve_quiz_and_get_code()
-    page.should_be_successfully_added_to_basket()
+    browser = page.go_to_login_page()
+    login_page = LoginPage(browser, browser.current_url)
+    login_page.should_be_login_page()
 
 
 @pytest.mark.parametrize('link', links)
@@ -68,6 +64,7 @@ def test_message_disappeared_after_adding_product_to_basket(browser):
     page.should_disappear_success_messages()
 
 
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     page = ProductPage(browser, product_link)
     page.open()
@@ -76,6 +73,15 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     browser = page.go_to_basket_page()
     basket_page = BasketPage(browser, browser.current_url)
     basket_page.should_be_empty_basket()
+
+
+@pytest.mark.need_review
+def test_guest_can_add_product_to_basket(browser):
+    page = ProductPage(browser, product_link)
+    page.open()
+    page.add_product_to_basket()
+    page.solve_quiz_and_get_code()
+    page.should_be_successfully_added_to_basket()
 
 
 @pytest.mark.user_auth
@@ -95,7 +101,7 @@ class TestUserAddToBasketFromProductPage:
         page.open()
         page.should_not_be_success_messages()
 
-    # @pytest.mark.parametrize('link', links_xfail)
+    @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         page = ProductPage(browser, product_link)
         page.open()
