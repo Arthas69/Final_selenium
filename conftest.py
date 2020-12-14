@@ -36,7 +36,6 @@ def browser(request, locale):
         browser = webdriver.Firefox(firefox_profile=fp, options=options)
     else:
         raise pytest.UsageError('Browser should be chrome or firefox')
-
     yield browser
 
     browser.quit()
