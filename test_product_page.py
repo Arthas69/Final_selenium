@@ -3,9 +3,9 @@ from random import choice
 
 import pytest
 
-from pages.basket_page import BasketPage
-from pages.product_page import ProductPage
-from pages.login_page import LoginPage
+from .pages.basket_page import BasketPage
+from .pages.product_page import ProductPage
+from .pages.login_page import LoginPage
 
 
 product_link = 'http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209'
